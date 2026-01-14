@@ -1,4 +1,5 @@
 # Lucene Analyzer Application
+[The code in this repository was created by Anthropic Claude Sonnet 4.5 at the behest, and under the instruction, of John Underwood]
 
 A web application for visualizing how Lucene analyzers tokenize text for search indexing and querying. This tool helps users understand how different analyzers break down text and which tokens match between indexed content and search queries.
 
