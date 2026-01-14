@@ -1,0 +1,39 @@
+# .gitignore for Lucene Analyzer Application
+
+## Backend (Maven/Spring Boot)
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+backend/.idea/
+backend/*.iml
+backend/*.iws
+backend/*.ipr
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/bin/
+
+## Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+
+## IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Logs
+*.log
+logs/
+
+## Temp
+*.tmp
+*.temp

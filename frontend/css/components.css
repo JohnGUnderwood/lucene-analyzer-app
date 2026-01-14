@@ -1,0 +1,151 @@
+/**
+ * Component-specific styles
+ */
+
+/* Token Card Component */
+.token-card {
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 6px;
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.token-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.token-card.matched {
+    background: #28a745;
+    border-color: #28a745;
+}
+
+.token-card h6 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    word-break: break-word;
+    color: #2c3e50;
+}
+
+.token-card.matched h6 {
+    color: white;
+}
+
+.token-card p {
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+.token-card.matched p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* Side Panel Component */
+.side-panel {
+    position: fixed;
+    top: 0;
+    right: -500px;
+    width: 500px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.side-panel.open {
+    right: 0;
+}
+
+.side-panel-content {
+    padding: 2rem;
+}
+
+.side-panel h2 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.side-panel p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+}
+
+.side-panel ul {
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.side-panel li {
+    margin-bottom: 0.75rem;
+    line-height: 1.6;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: #6c757d;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.close-btn:hover {
+    background: #f8f9fa;
+    color: #000;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .side-panel {
+        width: 100%;
+        right: -100%;
+    }
+    
+    .tokens-container {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+    
+    header h1 {
+        font-size: 1.75rem;
+    }
+    
+    .info-btn {
+        padding: 8px 16px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Loading state */
+.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Animation for token cards appearing */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.token-card {
+    animation: fadeIn 0.3s ease-in-out;
+}
