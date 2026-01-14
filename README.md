@@ -74,7 +74,7 @@ lucene-analyzer-app/
 ### 1. Clone or Navigate to Project
 
 ```bash
-cd /Users/junderwood/GitHub/sc-specialists-tooling/lucene-analyzer-app
+cd lucene-analyzer-app
 ```
 
 ### 2. Backend Setup

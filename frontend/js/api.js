@@ -3,7 +3,7 @@
  * Handles all HTTP requests to the backend
  */
 
-const API_BASE_URL = 'http://localhost:8181/api';
+const API_BASE_URL = 'http://localhost:8080/api';
 
 /**
  * Fetch all available analyzers
