@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Analyzer - Lucene Token Analysis</title>
+    <title>MongoDB Search Analyzer - Lucene Token Analysis</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/components.css">
 </head>
@@ -54,10 +54,22 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="indexAnalyzer">Index Analyzer</label>
+                            <label>
+                                <input type="radio" name="indexAnalyzerType" value="predefined" checked>
+                                Select Analyzer
+                            </label>
                             <select id="indexAnalyzer" class="form-select">
                                 <option value="">Loading...</option>
                             </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>
+                                <input type="radio" name="indexAnalyzerType" value="custom">
+                                <a href="https://www.mongodb.com/docs/atlas/atlas-search/analyzers/custom/#std-label-custom-analyzers" target="_blank">Custom Analyzer (JSON)</a>
+                            </label>
+                            <textarea id="customIndexAnalyzer" class="form-control code-input" rows="10" style="display: none;" placeholder='{"name": "myAnalyzer", "tokenizer": {"type": "standard"}, "tokenFilters": [{"type": "lowercase"}]}'></textarea>
+                            <button id="loadExampleIndex" class="btn btn-small" style="display: none; margin-top: 5px;">Load Example</button>
                         </div>
 
                         <div class="input-group">
@@ -94,10 +106,22 @@
                         </div>
 
                         <div class="input-group">
-                            <label for="queryAnalyzer">Query Analyzer</label>
+                            <label>
+                                <input type="radio" name="queryAnalyzerType" value="predefined" checked>
+                                Select Analyzer
+                            </label>
                             <select id="queryAnalyzer" class="form-select">
                                 <option value="">Loading...</option>
                             </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>
+                                <input type="radio" name="queryAnalyzerType" value="custom">
+                                <a href="https://www.mongodb.com/docs/atlas/atlas-search/analyzers/custom/#std-label-custom-analyzers" target="_blank">Custom Analyzer (JSON)</a>
+                            </label>
+                            <textarea id="customQueryAnalyzer" class="form-control code-input" rows="10" style="display: none;" placeholder='{"name": "myAnalyzer", "tokenizer": {"type": "standard"}, "tokenFilters": [{"type": "lowercase"}]}'></textarea>
+                            <button id="loadExampleQuery" class="btn btn-small" style="display: none; margin-top: 5px;">Load Example</button>
                         </div>
                     </div>
                 </div>

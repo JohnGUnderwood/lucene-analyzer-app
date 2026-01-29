@@ -96,6 +96,72 @@ function setupEventListeners() {
     
     // Autocomplete checkbox
     document.getElementById('useAutocomplete').addEventListener('change', handleAutocompleteToggle);
+    
+    // Radio buttons for analyzer type
+    document.querySelectorAll('input[name="indexAnalyzerType"]').forEach(radio => {
+        radio.addEventListener('change', () => toggleAnalyzerInput('index'));
+    });
+    
+    document.querySelectorAll('input[name="queryAnalyzerType"]').forEach(radio => {
+        radio.addEventListener('change', () => toggleAnalyzerInput('query'));
+    });
+    
+    // Load example buttons
+    document.getElementById('loadExampleIndex').addEventListener('click', () => loadExampleDefinition('index'));
+    document.getElementById('loadExampleQuery').addEventListener('click', () => loadExampleDefinition('query'));
+}
+
+/**
+ * Toggle between predefined and custom analyzer inputs
+ */
+function toggleAnalyzerInput(type) {
+    const isPredefined = document.querySelector(`input[name="${type}AnalyzerType"]:checked`).value === 'predefined';
+    const selectId = type === 'index' ? 'indexAnalyzer' : 'queryAnalyzer';
+    const textareaId = type === 'index' ? 'customIndexAnalyzer' : 'customQueryAnalyzer';
+    const btnId = type === 'index' ? 'loadExampleIndex' : 'loadExampleQuery';
+    
+    document.getElementById(selectId).style.display = isPredefined ? 'block' : 'none';
+    document.getElementById(textareaId).style.display = isPredefined ? 'none' : 'block';
+    document.getElementById(btnId).style.display = isPredefined ? 'none' : 'inline-block';
+}
+
+/**
+ * Load example custom analyzer definition
+ */
+function loadExampleDefinition(type) {
+    const example = {
+        "name": "myCustomAnalyzer",
+        "charFilters": [
+            {
+                "type": "mapping",
+                "mappings": {
+                    "&": "and"
+                }
+            }
+        ],
+        "tokenizer": {
+            "type": "standard",
+            "maxTokenLength": 255
+        },
+        "tokenFilters": [
+            {
+                "type": "lowercase"
+            },
+            {
+                "type": "stopword",
+                "tokens": ["the", "a", "an"],
+                "ignoreCase": true
+            },
+            {
+                "type": "length",
+                "min": 2,
+                "max": 100
+            }
+        ]
+    };
+    
+    const textareaId = type === 'index' ? 'customIndexAnalyzer' : 'customQueryAnalyzer';
+    document.getElementById(textareaId).value = JSON.stringify(example, null, 2);
 }
 
 /**
@@ -112,9 +178,16 @@ function handleAutocompleteToggle(event) {
 async function handleAnalyze() {
     const indexText = document.getElementById('indexText').value.trim();
     const queryText = document.getElementById('queryText').value.trim();
-    const indexAnalyzer = document.getElementById('indexAnalyzer').value;
-    const queryAnalyzer = document.getElementById('queryAnalyzer').value;
     const useAutocomplete = document.getElementById('useAutocomplete').checked;
+    
+    // Get analyzer selection
+    const indexType = document.querySelector('input[name="indexAnalyzerType"]:checked').value;
+    const queryType = document.querySelector('input[name="queryAnalyzerType"]:checked').value;
+    
+    let indexAnalyzer = null;
+    let queryAnalyzer = null;
+    let customIndexAnalyzer = null;
+    let customQueryAnalyzer = null;
     
     // Validation
     if (!indexText || !queryText) {
@@ -122,9 +195,46 @@ async function handleAnalyze() {
         return;
     }
     
-    if (!indexAnalyzer || !queryAnalyzer) {
-        alert('Please select analyzers');
-        return;
+    // Get index analyzer
+    if (indexType === 'predefined') {
+        indexAnalyzer = document.getElementById('indexAnalyzer').value;
+        if (!indexAnalyzer) {
+            alert('Please select an index analyzer');
+            return;
+        }
+    } else {
+        const customDef = document.getElementById('customIndexAnalyzer').value.trim();
+        if (!customDef) {
+            alert('Please enter a custom index analyzer definition');
+            return;
+        }
+        try {
+            customIndexAnalyzer = JSON.parse(customDef);
+        } catch (e) {
+            alert('Invalid JSON in custom index analyzer: ' + e.message);
+            return;
+        }
+    }
+    
+    // Get query analyzer
+    if (queryType === 'predefined') {
+        queryAnalyzer = document.getElementById('queryAnalyzer').value;
+        if (!queryAnalyzer) {
+            alert('Please select a query analyzer');
+            return;
+        }
+    } else {
+        const customDef = document.getElementById('customQueryAnalyzer').value.trim();
+        if (!customDef) {
+            alert('Please enter a custom query analyzer definition');
+            return;
+        }
+        try {
+            customQueryAnalyzer = JSON.parse(customDef);
+        } catch (e) {
+            alert('Invalid JSON in custom query analyzer: ' + e.message);
+            return;
+        }
     }
     
     // Build request
@@ -133,6 +243,8 @@ async function handleAnalyze() {
         queryText,
         indexAnalyzer,
         queryAnalyzer,
+        customIndexAnalyzer,
+        customQueryAnalyzer,
         useAutocomplete,
         autocompleteConfig: {
             autocompleteType: document.getElementById('autocompleteType').value,

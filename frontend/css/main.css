@@ -144,6 +144,31 @@ textarea.form-control {
     min-height: 80px;
 }
 
+.code-input {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
+}
+
+.code-input:focus {
+    background: white;
+}
+
+.btn-small {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-small:hover {
+    background: #5a6268;
+}
+
 /* Autocomplete Options */
 .autocomplete-options {
     margin-top: 1rem;

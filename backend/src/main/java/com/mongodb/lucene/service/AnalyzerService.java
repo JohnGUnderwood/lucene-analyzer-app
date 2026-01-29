@@ -3,6 +3,7 @@ package com.mongodb.lucene.service;
 import com.mongodb.lucene.model.AnalyzerDetail;
 import com.mongodb.lucene.model.AutocompleteConfig;
 import com.mongodb.lucene.model.TokenInfo;
+import com.mongodb.lucene.model.custom.CustomAnalyzerDefinition;
 import org.apache.lucene.analysis.*;
 import org.apache.lucene.analysis.ar.ArabicAnalyzer;
 import org.apache.lucene.analysis.bg.BulgarianAnalyzer;
@@ -103,6 +104,19 @@ public class AnalyzerService {
         analyzers.add(new AnalyzerDetail("lucene.turkish", CATEGORY_LANGUAGE));
 
         return analyzers;
+    }
+
+    /**
+     * Get analyzer instance by name or custom definition
+     */
+    public Analyzer getAnalyzer(String analyzerName, CustomAnalyzerDefinition customDefinition) {
+        // If custom definition is provided, use it
+        if (customDefinition != null) {
+            return CustomAnalyzerFactory.build(customDefinition);
+        }
+        
+        // Otherwise, fall back to predefined analyzer
+        return getAnalyzer(analyzerName);
     }
 
     /**

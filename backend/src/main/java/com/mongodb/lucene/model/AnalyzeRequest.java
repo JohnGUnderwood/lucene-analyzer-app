@@ -1,10 +1,14 @@
 package com.mongodb.lucene.model;
 
+import com.mongodb.lucene.model.custom.CustomAnalyzerDefinition;
+
 public class AnalyzeRequest {
     private String indexText;
     private String queryText;
     private String indexAnalyzer;
     private String queryAnalyzer;
+    private CustomAnalyzerDefinition customIndexAnalyzer;
+    private CustomAnalyzerDefinition customQueryAnalyzer;
     private boolean useAutocomplete;
     private AutocompleteConfig autocompleteConfig;
 
@@ -60,5 +64,21 @@ public class AnalyzeRequest {
 
     public void setAutocompleteConfig(AutocompleteConfig autocompleteConfig) {
         this.autocompleteConfig = autocompleteConfig;
+    }
+
+    public CustomAnalyzerDefinition getCustomIndexAnalyzer() {
+        return customIndexAnalyzer;
+    }
+
+    public void setCustomIndexAnalyzer(CustomAnalyzerDefinition customIndexAnalyzer) {
+        this.customIndexAnalyzer = customIndexAnalyzer;
+    }
+
+    public CustomAnalyzerDefinition getCustomQueryAnalyzer() {
+        return customQueryAnalyzer;
+    }
+
+    public void setCustomQueryAnalyzer(CustomAnalyzerDefinition customQueryAnalyzer) {
+        this.customQueryAnalyzer = customQueryAnalyzer;
     }
 }

@@ -32,9 +32,15 @@ public class AnalyzerController {
     @PostMapping("/analyze")
     public ResponseEntity<AnalyzeResponse> analyzeText(@RequestBody AnalyzeRequest request) {
         try {
-            // Get analyzers
-            Analyzer indexAnalyzer = analyzerService.getAnalyzer(request.getIndexAnalyzer());
-            Analyzer queryAnalyzer = analyzerService.getAnalyzer(request.getQueryAnalyzer());
+            // Get analyzers (custom or predefined)
+            Analyzer indexAnalyzer = analyzerService.getAnalyzer(
+                request.getIndexAnalyzer(), 
+                request.getCustomIndexAnalyzer()
+            );
+            Analyzer queryAnalyzer = analyzerService.getAnalyzer(
+                request.getQueryAnalyzer(), 
+                request.getCustomQueryAnalyzer()
+            );
 
             // Analyze index text
             Set<TokenInfo> indexTokens = analyzerService.analyzeText(
@@ -70,11 +76,15 @@ public class AnalyzerController {
             queryTokens.forEach(token -> token.setMatched(matchingTokens.contains(token.getText())));
 
             // Create response
+            String analyzerName = request.getCustomIndexAnalyzer() != null 
+                ? "Custom: " + request.getCustomIndexAnalyzer().getName()
+                : request.getIndexAnalyzer();
+            
             AnalyzeResponse response = new AnalyzeResponse(
                 new ArrayList<>(indexTokens),
                 new ArrayList<>(queryTokens),
                 matchingTokens,
-                request.getIndexAnalyzer()
+                analyzerName
             );
 
             return ResponseEntity.ok(response);

@@ -1,0 +1,567 @@
+{
+  "examples": [
+    {
+      "name": "Basic Lowercase & Stopwords",
+      "description": "Simple analyzer with lowercase and stopword removal",
+      "definition": {
+        "name": "basicAnalyzer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "stopword",
+            "tokens": ["the", "a", "an", "and", "or", "but"],
+            "ignoreCase": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "HTML Stripping with Stemming",
+      "description": "Strips HTML tags, applies lowercase, and Porter stemming",
+      "definition": {
+        "name": "htmlStemmer",
+        "charFilters": [
+          {
+            "type": "htmlStrip"
+          }
+        ],
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "porterStemming"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Autocomplete with Edge N-Grams",
+      "description": "Edge gram tokenizer for autocomplete functionality",
+      "definition": {
+        "name": "autocompleteAnalyzer",
+        "tokenizer": {
+          "type": "edgeGram",
+          "minGram": 2,
+          "maxGram": 10
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Character Mapping",
+      "description": "Maps special characters before tokenization",
+      "definition": {
+        "name": "mappingAnalyzer",
+        "charFilters": [
+          {
+            "type": "mapping",
+            "mappings": {
+              "&": "and",
+              "@": "at",
+              "©": "copyright"
+            }
+          }
+        ],
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Word Delimiter for Code",
+      "description": "Splits camelCase and snake_case identifiers",
+      "definition": {
+        "name": "codeAnalyzer",
+        "tokenizer": {
+          "type": "whitespace"
+        },
+        "tokenFilters": [
+          {
+            "type": "wordDelimiterGraph",
+            "generateWordParts": true,
+            "generateNumberParts": true,
+            "splitOnCaseChange": true,
+            "preserveOriginal": false
+          },
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "flattenGraph"
+          }
+        ]
+      }
+    },
+    {
+      "name": "N-Gram Search",
+      "description": "Creates n-grams for partial matching",
+      "definition": {
+        "name": "ngramAnalyzer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "nGram",
+            "minGram": 3,
+            "maxGram": 5,
+            "termNotInBounds": "omit"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Phonetic Matching",
+      "description": "Daitch-Mokotoff Soundex for phonetic matching",
+      "definition": {
+        "name": "phoneticAnalyzer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "daitchMokotoffSoundex",
+            "originalTokens": "include"
+          }
+        ]
+      }
+    },
+    {
+      "name": "English Language Analyzer",
+      "description": "English possessives, stopwords, and stemming",
+      "definition": {
+        "name": "englishCustom",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "englishPossessive"
+          },
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "stopword",
+            "tokens": ["the", "a", "an", "and", "are", "as", "at", "be", "but", "by", "for", "if", "in", "into", "is", "it", "no", "not", "of", "on", "or", "such", "that", "the", "their", "then", "there", "these", "they", "this", "to", "was", "will", "with"],
+            "ignoreCase": true
+          },
+          {
+            "type": "kStemming"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ICU Folding & Normalization",
+      "description": "Unicode normalization and folding for international text",
+      "definition": {
+        "name": "unicodeAnalyzer",
+        "charFilters": [
+          {
+            "type": "icuNormalize"
+          }
+        ],
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "icuFolding"
+          },
+          {
+            "type": "lowercase"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Regex Pattern Replacement",
+      "description": "Uses regex to replace patterns in tokens",
+      "definition": {
+        "name": "regexAnalyzer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "regex",
+            "pattern": "[^a-zA-Z0-9]",
+            "replacement": "",
+            "matches": "all"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Shingle (Multi-word) Tokens",
+      "description": "Creates tokens from consecutive word combinations",
+      "definition": {
+        "name": "shingleAnalyzer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "shingle",
+            "minShingleSize": 2,
+            "maxShingleSize": 3
+          }
+        ]
+      }
+    },
+    {
+      "name": "Length Filter",
+      "description": "Removes tokens outside specified length range",
+      "definition": {
+        "name": "lengthFilterAnalyzer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "length",
+            "min": 3,
+            "max": 20
+          }
+        ]
+      }
+    },
+    {
+      "name": "Persian Text Analysis",
+      "description": "Persian character normalization",
+      "definition": {
+        "name": "persianAnalyzer",
+        "charFilters": [
+          {
+            "type": "persian"
+          }
+        ],
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Snowball Stemmer (French)",
+      "description": "French language stemming",
+      "definition": {
+        "name": "frenchStemmer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "lowercase"
+          },
+          {
+            "type": "snowballStemming",
+            "stemmerName": "french"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ASCII Folding",
+      "description": "Converts accented characters to ASCII equivalents",
+      "definition": {
+        "name": "asciiFoldAnalyzer",
+        "tokenizer": {
+          "type": "standard"
+        },
+        "tokenFilters": [
+          {
+            "type": "asciiFolding",
+            "preserveOriginal": false
+          },
+          {
+            "type": "lowercase"
+          }
+        ]
+      }
+    }
+  ],
+  "supportedComponents": {
+    "charFilters": [
+      {
+        "type": "htmlStrip",
+        "description": "Strips HTML tags from text",
+        "properties": {
+          "ignoredTags": "Optional array of tag names to preserve"
+        }
+      },
+      {
+        "type": "icuNormalize",
+        "description": "ICU normalization for Unicode text",
+        "properties": {}
+      },
+      {
+        "type": "mapping",
+        "description": "Maps characters or strings to replacements",
+        "properties": {
+          "mappings": "Object with key-value pairs for character mappings"
+        }
+      },
+      {
+        "type": "persian",
+        "description": "Persian character normalization",
+        "properties": {}
+      }
+    ],
+    "tokenizers": [
+      {
+        "type": "edgeGram",
+        "description": "Creates edge n-grams from the beginning of text",
+        "properties": {
+          "minGram": "Minimum gram size (required)",
+          "maxGram": "Maximum gram size (required)"
+        }
+      },
+      {
+        "type": "keyword",
+        "description": "Treats entire input as single token",
+        "properties": {}
+      },
+      {
+        "type": "nGram",
+        "description": "Creates n-grams of specified sizes",
+        "properties": {
+          "minGram": "Minimum gram size (required)",
+          "maxGram": "Maximum gram size (required)"
+        }
+      },
+      {
+        "type": "regexCaptureGroup",
+        "description": "Tokenizes based on regex capture groups",
+        "properties": {
+          "pattern": "Regular expression pattern (required)",
+          "group": "Capture group number (required)"
+        }
+      },
+      {
+        "type": "regexSplit",
+        "description": "Splits text on regex pattern matches",
+        "properties": {
+          "pattern": "Regular expression pattern (required)"
+        }
+      },
+      {
+        "type": "standard",
+        "description": "Standard Unicode text segmentation",
+        "properties": {
+          "maxTokenLength": "Maximum token length (optional, default 255)"
+        }
+      },
+      {
+        "type": "uaxUrlEmail",
+        "description": "Tokenizer that preserves URLs and emails",
+        "properties": {
+          "maxTokenLength": "Maximum token length (optional)"
+        }
+      },
+      {
+        "type": "whitespace",
+        "description": "Splits on whitespace characters",
+        "properties": {
+          "maxTokenLength": "Maximum token length (optional)"
+        }
+      }
+    ],
+    "tokenFilters": [
+      {
+        "type": "asciiFolding",
+        "description": "Converts accented characters to ASCII",
+        "properties": {
+          "preserveOriginal": "Keep original tokens (default: false)"
+        }
+      },
+      {
+        "type": "daitchMokotoffSoundex",
+        "description": "Phonetic encoding filter",
+        "properties": {
+          "originalTokens": "Include original tokens: 'include' or 'omit' (default: 'omit')"
+        }
+      },
+      {
+        "type": "edgeGram",
+        "description": "Creates edge n-grams from tokens",
+        "properties": {
+          "minGram": "Minimum gram size (required)",
+          "maxGram": "Maximum gram size (required)",
+          "termNotInBounds": "'include' or 'omit' terms outside bounds (default: 'omit')"
+        }
+      },
+      {
+        "type": "englishPossessive",
+        "description": "Removes English possessives",
+        "properties": {}
+      },
+      {
+        "type": "flattenGraph",
+        "description": "Flattens token graphs for indexing",
+        "properties": {}
+      },
+      {
+        "type": "icuFolding",
+        "description": "ICU Unicode folding",
+        "properties": {}
+      },
+      {
+        "type": "icuNormalizer",
+        "description": "ICU Unicode normalization",
+        "properties": {
+          "normalizationForm": "nfc, nfd, nfkc, or nfkd (default: nfc)"
+        }
+      },
+      {
+        "type": "keywordRepeat",
+        "description": "Emits each token twice for selective processing",
+        "properties": {}
+      },
+      {
+        "type": "kStemming",
+        "description": "K-stemming algorithm for English",
+        "properties": {}
+      },
+      {
+        "type": "length",
+        "description": "Removes tokens outside length range",
+        "properties": {
+          "min": "Minimum length (required)",
+          "max": "Maximum length (required)"
+        }
+      },
+      {
+        "type": "lowercase",
+        "description": "Converts tokens to lowercase",
+        "properties": {}
+      },
+      {
+        "type": "nGram",
+        "description": "Creates n-grams from tokens",
+        "properties": {
+          "minGram": "Minimum gram size (required)",
+          "maxGram": "Maximum gram size (required)",
+          "termNotInBounds": "'include' or 'omit' (default: 'omit')"
+        }
+      },
+      {
+        "type": "porterStemming",
+        "description": "Porter stemming algorithm",
+        "properties": {}
+      },
+      {
+        "type": "regex",
+        "description": "Pattern replacement filter",
+        "properties": {
+          "pattern": "Regular expression (required)",
+          "replacement": "Replacement string (required)",
+          "matches": "'all' or 'first' (default: 'all')"
+        }
+      },
+      {
+        "type": "removeDuplicates",
+        "description": "Removes consecutive duplicate tokens",
+        "properties": {}
+      },
+      {
+        "type": "reverse",
+        "description": "Reverses token strings",
+        "properties": {}
+      },
+      {
+        "type": "shingle",
+        "description": "Creates word n-grams (shingles)",
+        "properties": {
+          "minShingleSize": "Minimum shingle size (default: 2)",
+          "maxShingleSize": "Maximum shingle size (default: 2)"
+        }
+      },
+      {
+        "type": "snowballStemming",
+        "description": "Snowball stemmer for various languages",
+        "properties": {
+          "stemmerName": "Language: arabic, armenian, basque, catalan, danish, dutch, english, finnish, french, german, greek, hindi, hungarian, indonesian, irish, italian, norwegian, portuguese, romanian, russian, spanish, swedish, turkish (required)"
+        }
+      },
+      {
+        "type": "spanishPluralStemming",
+        "description": "Spanish plural stemming",
+        "properties": {}
+      },
+      {
+        "type": "stempel",
+        "description": "Polish stemming",
+        "properties": {}
+      },
+      {
+        "type": "stopword",
+        "description": "Removes stopwords",
+        "properties": {
+          "tokens": "Array of stopwords (required)",
+          "ignoreCase": "Case insensitive matching (default: true)"
+        }
+      },
+      {
+        "type": "trim",
+        "description": "Trims whitespace from tokens",
+        "properties": {}
+      },
+      {
+        "type": "wordDelimiterGraph",
+        "description": "Splits words on delimiters and case changes",
+        "properties": {
+          "generateWordParts": "Generate word parts (default: true)",
+          "generateNumberParts": "Generate number parts (default: true)",
+          "catenateWords": "Concatenate word parts (default: false)",
+          "catenateNumbers": "Concatenate number parts (default: false)",
+          "catenateAll": "Concatenate all parts (default: false)",
+          "splitOnCaseChange": "Split on case changes (default: true)",
+          "preserveOriginal": "Keep original token (default: false)",
+          "splitOnNumerics": "Split on numerics (default: true)",
+          "stemEnglishPossessive": "Remove English possessive (default: true)",
+          "protectedWords": "Array of protected words (optional)",
+          "ignoreCase": "Case insensitive for protected words (default: false)"
+        }
+      }
+    ]
+  }
+}

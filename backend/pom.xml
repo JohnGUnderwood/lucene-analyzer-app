@@ -65,6 +65,27 @@
             <version>${lucene.version}</version>
         </dependency>
 
+        <!-- Lucene ICU (International Components for Unicode) -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analysis-icu</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+
+        <!-- Lucene Phonetic (for soundex filters) -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analysis-phonetic</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+
+        <!-- Lucene Stempel (Polish stemmer) -->
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analysis-stempel</artifactId>
+            <version>${lucene.version}</version>
+        </dependency>
+
         <!-- Spring Boot DevTools (optional, for hot reload) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
