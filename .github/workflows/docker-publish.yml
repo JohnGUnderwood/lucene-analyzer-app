@@ -5,7 +5,7 @@ on:
     types: [published]
     
 env:
-  DOCKERHUB_NAMESPACE: johnunderwood197
+  DOCKERHUB_NAMESPACE: johngunderwood
   DOCKERHUB_REPO: lucene-analyzer-app
 
 jobs:
