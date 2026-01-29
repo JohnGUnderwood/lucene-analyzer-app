@@ -72,82 +72,51 @@ lucene-analyzer-app/
 
 ## Installation & Setup
 
-### 1. Clone or Navigate to Project
+### Docker (Recommended - Simplest Option)
+
+Run both backend and frontend together:
 
 ```bash
-cd lucene-analyzer-app
+# Build the Docker image
+docker build -t lucene-analyzer-app:latest .
+
+# Run the container
+docker run -d -p 8080:8080 --name lucene-analyzer lucene-analyzer-app:latest
+
+# View logs (optional)
+docker logs -f lucene-analyzer
+
+# Stop container
+docker stop lucene-analyzer
 ```
 
-### 2. Backend Setup
+**Access the application at http://localhost:8080**
 
-#### Build and Run with Maven
+### Maven (Local Development)
+
+Run both backend and frontend with a single command:
 
 ```bash
 # Navigate to backend directory
 cd backend
 
-# Build the project
-mvn clean install
-
 # Run the application
 mvn spring-boot:run
 ```
 
-The backend API will start on **http://localhost:8080**
+**Access the application at http://localhost:8080**
 
-#### Verify Backend is Running
+The Spring Boot server will serve both the REST API (`/api/*`) and the frontend static files.
 
-Open your browser or use curl:
+##### Verify It's Running
+
 ```bash
+# Check the API
 curl http://localhost:8080/api/analyzers
+
+# Open in browser
+open http://localhost:8080
 ```
-
-You should see a JSON response with available analyzers.
-
-### 3. Frontend Setup
-
-The frontend is pure HTML/CSS/JS and needs to be served via HTTP (not file://).
-
-#### Option 1: Python HTTP Server (Easiest)
-
-```bash
-# Navigate to frontend directory
-cd frontend
-
-# Python 3
-python3 -m http.server 3000
-
-# Or Python 2
-python -m SimpleHTTPServer 3000
-```
-
-#### Option 2: Node.js HTTP Server
-
-```bash
-# Install http-server globally (one time)
-npm install -g http-server
-
-# Navigate to frontend directory
-cd frontend
-
-# Start server
-http-server -p 3000
-```
-
-#### Option 3: VS Code Live Server
-
-1. Install "Live Server" extension in VS Code
-2. Right-click on `index.html`
-3. Select "Open with Live Server"
-
-#### Option 4: PHP Server
-
-```bash
-cd frontend
-php -S localhost:3000
-```
-
-The frontend will be available at **http://localhost:3000**
 
 ## Usage
 
@@ -195,7 +164,7 @@ Returns list of all available analyzers.
 Analyzes text with specified analyzers.
 
 **Request Body:**
-```json
+```json808
 {
   "indexText": "The quick brown fox",
   "queryText": "quick fox",
@@ -327,7 +296,7 @@ Simply copy the `frontend/` directory to any static file hosting:
 
 ## License
 
-This project is created for MongoDB specialists and educational purposes.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Support
 
@@ -337,16 +306,18 @@ For issues or questions, please contact the development team or file an issue in
 
 ## Quick Start Commands
 
+**Docker:**
 ```bash
-# Terminal 1 - Start Backend
+docker build -t lucene-analyzer-app:latest .
+docker run -d -p 8080:8080 --name lucene-analyzer lucene-analyzer-app:latest
+# Open browser to http://localhost:8080
+```
+
+**Maven:**
+```bash
 cd backend
 mvn spring-boot:run
-
-# Terminal 2 - Start Frontend
-cd frontend
-python3 -m http.server 3000
-
-# Open browser to http://localhost:3000
+# Open browser to http://localhost:8080
 ```
 
 Enjoy analyzing with Lucene! 🚀

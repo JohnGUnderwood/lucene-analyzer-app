@@ -1,0 +1,60 @@
+# .dockerignore for Lucene Analyzer Application
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+CONVERSION_SUMMARY.md
+CUSTOM_ANALYZERS.md
+IMPLEMENTATION_SUMMARY.md
+README.md
+
+# Backend build artifacts
+backend/target/
+backend/.mvn/
+backend/mvnw
+backend/mvnw.cmd
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+backend/.idea/
+backend/*.iml
+backend/*.iws
+backend/*.ipr
+backend/.settings/
+backend/.classpath
+backend/.project
+backend/bin/
+
+# Frontend build artifacts (if using npm)
+frontend/node_modules/
+frontend/dist/
+frontend/.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+*.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Temp files
+*.tmp
+*.temp
+
+# Docker files (don't need these inside the image)
+Dockerfile
+.dockerignore
+docker-compose.yml
+
+# Test files
+backend/src/test/
