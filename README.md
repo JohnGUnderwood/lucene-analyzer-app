@@ -3,6 +3,31 @@
 
 A web application for visualizing how Lucene analyzers tokenize text for search indexing and querying. This tool helps users understand how different analyzers break down text and which tokens match between indexed content and search queries.
 
+## Quick Start Commands
+
+**Docker (Pull from Docker Hub):**
+```bash
+docker pull johngunderwood/lucene-analyzer-app:latest
+docker run -d -p 8080:8080 --name lucene-analyzer johngunderwood/lucene-analyzer-app:latest
+# Open browser to http://localhost:8080
+```
+
+**Docker (Build Locally):**
+```bash
+docker build -t lucene-analyzer-app:latest .
+docker run -d -p 8080:8080 --name lucene-analyzer lucene-analyzer-app:latest
+# Open browser to http://localhost:8080
+```
+
+**Maven:**
+```bash
+cd backend
+mvn spring-boot:run
+# Open browser to http://localhost:8080
+```
+
+Enjoy analyzing with Lucene! 🚀
+
 ## Features
 
 - **40+ Lucene Analyzers**: Test standard, whitespace, simple, keyword, and language-specific analyzers
@@ -74,6 +99,31 @@ lucene-analyzer-app/
 
 ### Docker (Recommended - Simplest Option)
 
+#### Option 1: Pull Pre-built Image from Docker Hub
+
+The easiest way to get started - no building required:
+
+```bash
+# Pull the latest image
+docker pull johngunderwood/lucene-analyzer-app:latest
+
+# Run the container
+docker run -d -p 8080:8080 --name lucene-analyzer johngunderwood/lucene-analyzer-app:latest
+
+# View logs (optional)
+docker logs -f lucene-analyzer
+
+# Stop container
+docker stop lucene-analyzer
+
+# Remove container
+docker rm lucene-analyzer
+```
+
+**Access the application at http://localhost:8080**
+
+#### Option 2: Build from Source
+
 Run both backend and frontend together:
 
 ```bash
@@ -88,6 +138,9 @@ docker logs -f lucene-analyzer
 
 # Stop container
 docker stop lucene-analyzer
+
+# Remove container
+docker rm lucene-analyzer
 ```
 
 **Access the application at http://localhost:8080**
@@ -300,24 +353,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-For issues or questions, please contact the development team or file an issue in the repository.
+For issues or questions, please file an issue in the repository.
 
 ---
-
-## Quick Start Commands
-
-**Docker:**
-```bash
-docker build -t lucene-analyzer-app:latest .
-docker run -d -p 8080:8080 --name lucene-analyzer lucene-analyzer-app:latest
-# Open browser to http://localhost:8080
-```
-
-**Maven:**
-```bash
-cd backend
-mvn spring-boot:run
-# Open browser to http://localhost:8080
-```
-
-Enjoy analyzing with Lucene! 🚀
