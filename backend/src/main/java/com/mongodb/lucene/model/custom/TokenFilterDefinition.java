@@ -150,10 +150,10 @@ public abstract class TokenFilterDefinition {
     // Length Filter
     public static class LengthFilter extends TokenFilterDefinition {
         @JsonProperty("min")
-        private int min;
+        private int min = 0; // Default: no minimum length
 
         @JsonProperty("max")
-        private int max;
+        private int max = Integer.MAX_VALUE; // Default: no maximum length
 
         public int getMin() {
             return min;
